@@ -1,0 +1,7 @@
+﻿  test.cpp
+g:\datastructure\实验\algorithmofsort\algorithmofsort\linearlist.h(56): warning C4554: “>>”: 检查运算符优先级可能存在的错误；使用圆括号阐明优先级
+  g:\datastructure\实验\algorithmofsort\algorithmofsort\linearlist.h(54): note: 编译 类 模板 成员函数 "void LinearList<int>::MergeSort(int &,int &,int,int)" 时
+  g:\datastructure\实验\algorithmofsort\algorithmofsort\test.cpp(49): note: 参见对正在编译的函数 模板 实例化“void LinearList<int>::MergeSort(int &,int &,int,int)”的引用
+  g:\datastructure\实验\algorithmofsort\algorithmofsort\test.cpp(22): note: 参见对正在编译的 类 模板 实例化 "LinearList<int>" 的引用
+  AlgorithmOfSort.vcxproj -> G:\DataStructure\实验\AlgorithmOfSort\Debug\AlgorithmOfSort.exe
+  AlgorithmOfSort.vcxproj -> G:\DataStructure\实验\AlgorithmOfSort\Debug\AlgorithmOfSort.pdb (Partial PDB)

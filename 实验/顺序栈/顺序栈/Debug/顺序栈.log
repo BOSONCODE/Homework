@@ -1,0 +1,5 @@
+﻿  test.cpp
+g:\datastructure\实验\顺序栈\顺序栈\test.cpp(19): warning C4715: “icp”: 不是所有的控件路径都返回值
+g:\datastructure\实验\顺序栈\顺序栈\test.cpp(27): warning C4715: “isp”: 不是所有的控件路径都返回值
+  顺序栈.vcxproj -> G:\DataStructure\实验\顺序栈\Debug\顺序栈.exe
+  顺序栈.vcxproj -> G:\DataStructure\实验\顺序栈\Debug\顺序栈.pdb (Partial PDB)
