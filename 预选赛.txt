@@ -1,0 +1,167 @@
+package com.mooctest;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.AndroidKeyCode;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.UnreachableBrowserException;
+
+
+public class Main {
+	
+	/**
+	 * 所有和AppiumDriver相关的操作都必须写在该函数中
+	 * @param driver
+	 */
+	public void test(AppiumDriver driver) {
+		    	try {
+			Thread.sleep(6000);		//等待6s，待应用完全启动
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS); //设置尝试定位控件的最长时间为8s,也就是最多尝试8s
+      /*
+    	 * 余下的测试逻辑请按照题目要求进行编写
+    	 */
+    	driver.findElementByXPath("//android.widget.Button[@text='同意']").click();
+    	try {
+			Thread.sleep(2000);		//等待2s，待应用完全启动
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	//关掉新人大礼包 [651,69][687,105][640, 70][700, 130]
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[640,70][700,130]']").click();
+    	//打开分类
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[144,1180][288,1280]']").click();
+    	//打开购物车
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[432,1180][576,1280]']").click();
+    	//打开我的
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[576,1180][720,1280]']").click();
+    	
+    	//打开发现
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[288,1180][432,1280]']").click();
+    	//打开搜索
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[532,60][616,144]']").click();
+    	//打开精选
+    	driver.findElementByXPath("//android.widget.TextView[@text='精选']").click();
+    	//打开视频
+    	driver.findElementByXPath("//android.widget.TextView[@text='视频']").click();
+    	//打开直播
+    	driver.findElementByXPath("//android.widget.TextView[@text='直播']").click();
+    	//打开关注
+    	driver.findElementByXPath("//android.widget.TextView[@text='关注']").click();
+    	//打开评论
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[653,78][693,118]']").click();
+    	driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	//打开搜索
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[536,50][636,146]']").click();
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[0,79][100,119]']").click();
+    	//点开首页
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[0,1180][144,1280]']").click();
+    	//点开搜索
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[117,81][146,110]']").click();
+    	//输入搜索耳机
+    	driver.findElementByXPath("//android.widget.EditText[@text='京东超市 满199减100']").sendKeys("耳机");
+    	//点击搜索
+    	driver.findElementByXPath("//android.widget.TextView[@text='搜索']").click();
+    	//点击销量
+    	driver.findElementByXPath("//android.widget.TextView[@text='销量']").click();
+    	//点击价格
+    	driver.findElementByXPath("//android.widget.TextView[@text='价格']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='价格']").click();
+    	/*//点击筛选
+    	driver.findElementByXPath("//android.widget.TextView[@text='筛选']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text=' 北京东城区内环到三环里']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='江苏']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='南京市']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='鼓楼区']").click();
+    	
+    	driver.findElementByXPath("//android.widget.CheckBox[@text='仅看有货'").click();
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[676,843][696,851]']").click();
+    	driver.findElementByXPath("//android.widget.CheckBox[@text='索尼（SONY）'").click();
+    	int width = driver.manage().window().getSize().width;
+    	int height = driver.manage().window().getSize().height;
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.swipe(width*3/4,height/3,width/4,height/3,500);
+    	driver.findElementByXPath("//android.widget.CheckBox[@text='耳机'").click();   	
+    	driver.findElementByXPath("//android.widget.Button[@text='确定']").click();*/
+    	//点击综合
+    	driver.findElementByXPath("//android.widget.TextView[@text='综合']").click();
+    	
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[104,185][114,191]']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='新品优先']").click();
+    	
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[104,185][114,191]']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='评论数从高到低']").click();
+    	//测试智能助理
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[542,67][606,131]']").click();
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[0,50][94,140]']").click();
+    	
+    	//浏览时切换模块
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[638,67][702,131]']").click();
+	}
+	/**
+	 * AppiumDriver的初始化逻辑必须写在该函数中
+	 * @return
+	 */
+	public AppiumDriver initAppiumTest() {
+		
+		AppiumDriver driver=null;
+        File classpathRoot = new File(System.getProperty("user.dir"));
+        File appDir = new File(classpathRoot, "apk");
+        File app = new File(appDir, "JDmall.apk");
+        
+        //设置自动化相关参数
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName", "");
+        capabilities.setCapability("platformName", "Android");
+        capabilities.setCapability("deviceName", "Android Emulator");
+        //设置安卓系统版本
+        capabilities.setCapability("platformVersion", "5.1.1");
+        //设置apk路径
+        capabilities.setCapability("app", app.getAbsolutePath()); 
+        capabilities.setCapability("appPackage","com.jingdong.app.mall");
+        capabilities.setCapability("appActivity",".main.MainActivity");
+        
+        //设置使用unicode键盘，支持输入中文和特殊字符
+        capabilities.setCapability("unicodeKeyboard","true");
+        //设置用例执行完成后重置键盘
+        capabilities.setCapability("resetKeyboard","true");
+        capabilities.setCapability("noSign","true");
+        //初始化
+        try {
+			driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
+        return driver;
+	}
+	
+	public void start() {
+		test(initAppiumTest());
+	}
+	
+	public static void main(String[] args) {
+		Main main = new Main();
+		main.start();
+	}
+	
+
+}
