@@ -1,0 +1,73 @@
+消除代码的冗余性而避免使用goto之类的语句:
+举个栗子:
+void test() {
+	int res = f1();
+	if (res) {
+		do something;
+		return;
+	}
+	int res2 = f2();
+	if (res2) {
+		do something;
+		return;
+	}
+	do something;
+	return;
+}
+<=>
+void test() {
+	do {
+		int res1 = f1();
+		if (res1) break;
+		int res2 = f2(); 
+		if (res2) break; 
+	} while (0);
+	do something;
+	return;
+}
+是不是很方便,消除了do something的冗余性
+
+宏中的使用:
+http://www.cnblogs.com/lanxuezaipiao/p/3535626.html
+do{
+ do something;
+}while(0)
+
+实际应用, 举个栗子:
+#define TEST_ASSERT_EQUAL(condition, value_expected) \
+    do{ \
+        if ((condition) != (value_expected)) { \
+            printf("%s(%d): %s() Failure!!!", __FILE__, __LINE__, __FUNCTION__); \
+        } \
+    }while(0)
+
+do{...} while(0)在C中是唯一的构造程序, 让你定义的宏总是以相同的方式工作，这样不管怎么使用宏（尤其是在没有用到大括号包围调用宏的语句），宏后面的分号也是相同的效果。
+
+举个栗子:
+#define foo(x) bar(x);baz(x)
+foo(wolf); <=> bar(wolf);baz(wolf);
+
+但是如果
+if(!feral)
+	foo(wolf);
+<=>
+if(!feral)
+	bar(wolf);
+baz(wolf);
+这不是我们想要的
+
+但是为什么不用大括号直接把宏包围起来呢？为什么非得使用do/while(0)逻辑呢?
+像这样 #define foo(x)  { bar(x); baz(x); }
+
+if(!feral)
+	foo(wolf);
+else
+	bin(wolf);
+<=>
+if(!feral){
+	bar(wolf);
+	baz(wolf);
+};
+else
+	bin(wolf);
+//语法错误

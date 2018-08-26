@@ -1,0 +1,22 @@
+offsetof
+#define offsetof(TYPE, MEMBER) ((int) &((TYPE *)0)->MEMBER)
+返回值就是member元素的地址的偏移量
+1）TYPE是结构体类型，MEMBER是结构体中一个元素的元素名
+2）这个宏返回的是member元素相对于整个结构体变量的首地址的偏移量，类型是int
+http://blog.51cto.com/11674570/1862701
+
+container_of
+#define container_of(ptr, type, member) ({\
+const typeof(((type *)0)->member) * __mptr = (ptr);\
+(type *)((char *)__mptr - offsetof(type, member)); }
+注意：这里的 \ 是连行符
+（1）ptr是指向结构体元素member的指针，type是结构体类型，member是结构体
+中一个元素的元素名
+（2）这个宏返回的就是指向整个结构体变量的指针，类型是(type *)
+
+Linux的RCU机制
+https://www.jianshu.com/p/c9088b6223cf
+所谓的RCU(Read-Copy Update)是Linux中比较重要的一种同步机制。顾名思义就是"读，拷贝，更新",再直白点是“随意读，但更新数据的时候，需要先复制一份副本，在副本上完成修改，再一次性地替换旧数据”。这是 Linux 内核实现的一种针对“读多写少”的共享数据的同步机制。
+RCU 的一个典型的应用场景是链表，在 Linux kernel 中还专门提供了一个头文件（include/linux/rculist.h），提供了利用 RCU 机制对链表进行增删查改操作的接口。本文将通过一个例子，利用 rculist.h 提供的接口对链表进行增删查改的操作，来讲述 RCU 的原理，以及介绍 Linux kernel 中相关的 API（基于 Linux v3.4.0 的源码）。
+
+

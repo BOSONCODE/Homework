@@ -1,0 +1,356 @@
+#include <iostream>
+#include <string>
+#include <algorithm>
+#include <vector>
+#include <math.h>
+
+namespace namePool {
+	using std::cin;
+	using std::cout;
+	using std::endl;
+	using std::vector;
+	using std::pair;
+	using std::istream;
+	using std::ostream;
+}
+
+using namespace namePool;
+
+const int maxn = (int)(1e3 + 5);
+
+struct Point {
+	int x, y;
+	bool operator < (const Point &rhs) const{
+		return y < rhs.y;
+	}
+	friend istream &operator >> (istream &in, Point &rhs){
+		return in >> rhs.x >> rhs.y;
+	}
+	friend ostream &operator << (ostream &out, const Point &rhs) {
+		return out << "(" << rhs.x << ", " << rhs.y << ")";
+	}
+};
+
+vector<int>Plane[maxn];
+
+struct node {
+	int l, r;
+	vector<Point>y;
+}tree[maxn << 2];
+
+class segmentTree_Binary_Search {
+public:
+	vector<Point> merge(vector<Point> lchild, vector<Point> rchild) {
+		int len1 = (int)lchild.size(), len2 = (int)rchild.size();
+		int pos1 = 0, pos2 = 0;
+		vector<Point>tmp;
+		while (pos1 < len1 && pos2 < len2) {
+			if (lchild[pos1] < rchild[pos2]) {
+				tmp.emplace_back(lchild[pos1]);
+				++pos1;
+			}
+			else {
+				tmp.emplace_back(rchild[pos2]);
+				++pos2;
+			}
+		}
+		while (pos1 < len1) {
+			tmp.emplace_back(lchild[pos1]);
+			++pos1;
+		}
+		while (pos2 < len2) {
+			tmp.emplace_back(rchild[pos2]);
+			++pos2;
+		}
+		return tmp;
+	}
+
+	void Build(int rt, int l, int r) {
+		tree[rt].l = l, tree[rt].r = r;
+		if (l == r) {
+			for (auto &it : Plane[l])
+				tree[rt].y.emplace_back(Point{ l, it });
+			return;
+		}
+		int mid = (l + r) >> 1;
+		Build(rt << 1, l, mid);
+		Build(rt << 1 | 1, mid + 1, r);
+		tree[rt].y = merge(tree[rt << 1].y, tree[rt << 1 | 1].y);
+	}
+
+	void erasePoint(int rt, Point point) {
+		int L = tree[rt].l, R = tree[rt].r;
+		if (L <= point.x && point.x <= R) {
+			vector<Point>::iterator it = lower_bound(tree[rt].y.begin(), tree[rt].y.end(), Point{ -1, point.y });
+			if (it != tree[rt].y.end()) tree[rt].y.erase(it);
+		}
+		if (L == R) return;
+		int mid = (L + R) >> 1;
+		if (point.x <= mid) erasePoint(rt << 1, point);
+		else erasePoint(rt << 1 | 1, point);
+	}
+
+	void insertPoint(int rt, Point point) {
+		int L = tree[rt].l, R = tree[rt].r;
+		if (L <= point.x && point.x <= R) {
+			vector<Point>::iterator it = upper_bound(tree[rt].y.begin(), tree[rt].y.end(), Point{ -1, point.y });
+			tree[rt].y.insert(it, point);
+		}
+		if (L == R) return;
+		int mid = (L + R) >> 1;
+		if (point.x <= mid) insertPoint(rt << 1, point);
+		else insertPoint(rt << 1 | 1, point);
+	}
+
+	vector<Point> Binary_Search(vector<Point>y, pair<int, int>qY) {
+		vector<Point>::iterator leftBound = lower_bound(y.begin(), y.end(), Point{ -1, qY.first });
+		vector<Point>::iterator rightBound = upper_bound(leftBound, y.end(), Point{ -1, qY.second });
+		vector<Point>res;
+		for_each(leftBound, rightBound, [&res](Point it) {res.emplace_back(it); });
+		return res;
+	}
+
+	vector<Point> query(int rt, pair<int, int>qX, pair<int, int>qY) {
+		int L = tree[rt].l, R = tree[rt].r;
+		if (qX.first <= L && R <= qX.second) {
+			return Binary_Search(tree[rt].y, qY);
+		}
+		int mid = (L + R) >> 1;
+		vector<Point>res1, res2;
+		if (qX.first <= mid) res1 = query(rt << 1, qX, qY);
+		if (mid < qX.second) res2 = query(rt << 1 | 1, qX, qY);
+		return merge(res1, res2);
+	}
+	void print(int dep) {
+		for (int layer = 0; layer < dep; ++layer) {
+			int st = 1 << layer, en = (1 << layer + 1) - 1;
+			for (int i = st; i <= en; ++i) {
+				cout << i << endl;
+				for (auto it : tree[i].y) {
+					cout << it.y << "*******" << endl;
+				}
+			}
+		}
+	}
+}stbs;
+
+vector<pair<int, int> >_hash;
+struct fcPoint{
+	int x, y;
+	int lp, rp;
+	bool operator < (const fcPoint &rhs) const {
+		return y < rhs.y;
+	}
+	friend istream &operator >> (istream &in, fcPoint &rhs) {
+		return in >> rhs.x >> rhs.y;
+	}
+	friend ostream &operator << (ostream &out, const fcPoint &rhs) {
+		return out << "(" << _hash[rhs.x-1].first << ", " << rhs.y << ")";
+	}
+};
+
+struct fcnode {
+	int l, r;
+	vector<fcPoint>y;
+}treef[maxn << 2];
+
+class segmentTree_Fractional_Cascading{
+private:
+	int lp, rp;
+public:
+	vector<fcPoint> merge(vector<fcPoint> lchild, vector<fcPoint> rchild) {
+		int len1 = (int)lchild.size(), len2 = (int)rchild.size();
+		int pos1 = 0, pos2 = 0;
+		vector<fcPoint>tmp;
+		while (pos1 < len1 && pos2 < len2) {
+			if (lchild[pos1] < rchild[pos2]) {
+				tmp.emplace_back(lchild[pos1]);
+				++pos1;
+			}
+			else {
+				tmp.emplace_back(rchild[pos2]);
+				++pos2;
+			}
+		}
+		while (pos1 < len1) {
+			tmp.emplace_back(lchild[pos1]);
+			++pos1;
+		}
+		while (pos2 < len2) {
+			tmp.emplace_back(rchild[pos2]);
+			++pos2;
+		}
+		return tmp;
+	}
+
+	void Build(int rt, int l, int r) {
+		treef[rt].l = l, treef[rt].r = r;
+		if (l == r) {
+			for (int &it : Plane[l])
+				treef[rt].y.emplace_back(fcPoint{ l, it });
+			for (fcPoint &it : treef[rt].y) {
+				it.lp = it.rp = -1;
+			}
+			return;
+		}
+		int mid = (l + r) >> 1;
+		int lchild = rt << 1, rchild = rt << 1 | 1;
+		Build(lchild, l, mid);
+		Build(rchild, mid + 1, r);
+		treef[rt].y = merge(treef[lchild].y, treef[rchild].y);
+		int posl = 0, posr = 0, lenl = (int)treef[lchild].y.size(), lenr = (int)treef[rchild].y.size();
+		posl = (0 == lenl ? -1 : 0);
+		posr = (0 == lenr ? -1 : 0);
+		for (fcPoint &it : treef[rt].y) {
+			while (~posl && posl < lenl && treef[lchild].y[posl] < it)
+				++posl;
+			it.lp = (posl == lenl ? -1 : posl);
+			while (~posr && posr < lenr && treef[rchild].y[posr] < it)
+				++posr;
+			it.rp = (posr == lenr ? -1 : posr);
+		}
+	}
+
+	vector<fcPoint> query(int rt, pair<int, int>qX, pair<int, int>qY, int lp, int rp) {
+		int L = treef[rt].l, R = treef[rt].r;
+		int mid = (L + R) >> 1;
+		vector<fcPoint>res1, res2;
+		int lchild = rt << 1, rchild = lchild | 1;
+		int llp = lp, rrp = rp;
+		if (qX.first <= L && mid <= qX.second) {
+			int len = (int)treef[lchild].y.size();
+			while (~llp && llp < len && treef[lchild].y[llp].y <= qY.second) {
+				res1.push_back(treef[lchild].y[llp]);
+				++llp;
+			}
+		}
+		else if(qX.first <= mid){
+			if (~llp) {
+				rrp = treef[lchild].y[llp].rp;
+				llp = treef[lchild].y[llp].lp;
+				res1 = query(lchild, qX, qY, llp, rrp);
+			}
+		}
+		if (R <= qX.second && qX.first <= mid) {
+			int len = (int)treef[rchild].y.size();
+			while (~rp && rp < len && treef[rchild].y[rp].y <= qY.second) {
+				res2.push_back(treef[rchild].y[rp]);
+				++rp;
+			}
+		}
+		else if (mid < qX.second) {
+			if (~rp) {
+				lp = treef[rchild].y[rp].lp;
+				rp = treef[rchild].y[rp].rp;
+				res2 = query(rchild, qX, qY, lp, rp);
+			}
+		}
+		return merge(res1, res2);
+	}
+
+	vector<fcPoint> search(pair<int, int>qX, pair<int, int>qY) {
+		vector<fcPoint>::iterator it = lower_bound(treef[1].y.begin(), treef[1].y.end(), fcPoint{-1, qY.first });
+		lp = it->lp, rp = it->rp;
+		return query(1, qX, qY, lp, rp);
+	}
+
+	void print(int dep) {
+		for (int layer = 0; layer < dep; ++layer) {
+			int st = 1 << layer, en = (1 << layer + 1) - 1;
+			for (int i = st; i <= en; ++i) {
+				cout << i << endl;
+				for (auto it : treef[i].y) {
+					cout << it.y << ": (" << it.lp << ", " << it.rp << ") " << endl;
+				}
+			}
+		}
+	}
+}stfc;
+
+void test_segmentTree_Binary_Search() {
+	int pointNum, minX = INT_MAX, maxX = 0;
+	cin >> pointNum;
+	for (int i = 0; i < pointNum; ++i) {
+		int x, y; cin >> x >> y;
+		Plane[x].emplace_back(y);
+		maxX = std::max(x, maxX);
+		minX = std::min(x, minX);
+	}
+	stbs.Build(1, minX, maxX);
+	stbs.erasePoint(1, Point{ 8, 37 });
+	int q; cin >> q;
+	while (q-- > 0) {
+		Point p1, p2;
+		cin >> p1 >> p2;
+		vector<Point>ans = stbs.query(1, std::make_pair(std::min(p1.x, p2.x), std::max(p1.x, p2.x)),
+			std::make_pair(std::min(p1.y, p2.y), std::max(p1.y, p2.y))
+		);
+		for_each(ans.begin(), ans.end(), [](Point it) {cout << it << endl;  });
+		stbs.insertPoint(1, Point{ 8, 37 });
+	}
+}
+
+void test_segmentTree_Fractional_Cascading() {
+	int pointNum, minX = INT_MAX, maxX = 0;
+	cin >> pointNum;
+	for (int i = 0; i < pointNum; ++i) {
+		int x, y; cin >> x >> y;
+		_hash.push_back(std::make_pair(x, y));
+	}
+	sort(_hash.begin(), _hash.end());
+	for (int i = 0; i < _hash.size(); ++i)
+		Plane[i + 1].push_back(_hash[i].second);
+	stfc.Build(1, 1, (int)_hash.size());
+	stfc.print(4);
+	int q; cin >> q;
+	while (q-->0) {
+		fcPoint p1, p2;
+		cin >> p1 >> p2;
+		int tmpx = p2.x;
+		p1.x = lower_bound(_hash.begin(), _hash.end(), std::make_pair(p1.x, -1)) - _hash.begin() + 1;
+		p2.x = lower_bound(_hash.begin(), _hash.end(), std::make_pair(p2.x, -1)) - _hash.begin();
+		if (_hash[p2.x].first == tmpx) ++p2.x;
+		vector<fcPoint>ans = stfc.search(std::make_pair(std::min(p1.x, p2.x), std::max(p1.x, p2.x)),
+			std::make_pair(std::min(p1.y, p2.y), std::max(p1.y, p2.y))
+		);
+		for_each(ans.begin(), ans.end(), [](fcPoint it) {cout << it << endl;  });
+	}
+}
+
+int main() {
+	//test_segmentTree_Binary_Search();
+	test_segmentTree_Fractional_Cascading();
+	return 0;
+}
+
+/*
+input:
+14
+2 19
+7 10
+12 3
+17 62
+5 80
+8 37
+15 99
+21 49
+41 95
+58 59
+93 70
+33 30
+52 23
+67 89
+2
+4 19
+58 65
+4 19
+58 65
+
+output:
+(8, 37)
+(17, 62)
+(52, 23)
+(33, 30)
+(21, 49)
+(58, 59)
+*/

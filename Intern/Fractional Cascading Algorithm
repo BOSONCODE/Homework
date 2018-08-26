@@ -1,0 +1,170 @@
+#include <iostream>
+#include <algorithm>
+#include <vector>
+
+namespace Pool {
+	using std::cin;
+	using std::cout;
+	using std::endl;
+	using std::ends;
+	using std::vector;
+	using std::ostream;
+}
+
+using namespace Pool;
+
+struct Item{
+	double val;
+	int posL;
+	int posM;
+
+	Item(double _val = 0, int _posL = 0, int _posM = 0) :
+		val(_val), posL(_posL), posM(_posM) {}
+
+	friend ostream& operator << (ostream &out, const Item &rhs)  {
+		out << "(" << rhs.val << ", " << rhs.posL << ", " << rhs.posM << ")";
+		return out;
+	}
+};
+
+class FractionalCascading {
+private:
+	vector<vector<Item> >L, M;
+public:
+	FractionalCascading() {}
+	FractionalCascading(vector<vector<Item> > _L) { L = _L; }
+	void setL(vector<vector<Item> > _L) { L = _L; }
+	vector<vector<Item> > getL() { return L; }
+	vector<vector<Item> > getM() { return M; }
+	void ConstructM();
+	int BinarySearch(double x, const vector<Item> &v);
+	vector<int> FindElementX(double x);
+	FractionalCascading::~FractionalCascading() { L.clear(); M.clear(); }
+
+	void printLists(vector<vector<Item> >v) {
+		for (auto it : v) {
+			for (auto lst : it) {
+				cout << lst << ends;
+			}
+			cout << endl;
+		}
+	}
+}FC;
+
+
+void FractionalCascading::ConstructM() {
+	int k = (int)L.size();
+	M.push_back(L[k - 1]);
+	int cnt = 0;
+	//L_i = merge(L_i, M_{i+1})
+	for (int i = k - 2; i >= 0; --i) {
+		int lenM = (int)M[cnt].size();
+		int lenL = (int)L[i].size();
+		vector<Item>tmp;
+		int posL = 0, posM = 1;
+		while (posL < lenL && posM < lenM) {
+			if (M[cnt][posM].val == L[i][posL].val) {
+				tmp.push_back(Item(L[i][posL].val, L[i][posL].posL, posM));
+				posM += 2;
+				++posL;
+			}
+			else if (M[cnt][posM].val < L[i][posL].val) {
+				tmp.push_back(Item(M[cnt][posM].val, L[i][posL].posL, posM));
+				posM += 2;
+			}
+			else {
+				int index = posM;
+				if (L[i][posL].val < M[cnt][posM-1].val) --index;
+				tmp.push_back(Item(L[i][posL].val, L[i][posL].posL, index));
+				++posL;
+			}
+		}
+		while (posL < lenL) {
+			tmp.push_back(Item(L[i][posL].val, L[i][posL].posL, (int)M[cnt].size()));
+			++posL;
+		}
+		while (posM < lenM) {
+			tmp.push_back(Item(M[cnt][posM].val, (int)L[i].size(), posM));
+			posM += 2;
+		}
+		M.push_back(tmp);
+		++cnt;
+	}
+	reverse(M.begin(), M.end());
+}
+
+
+int FractionalCascading::BinarySearch(double x, const vector<Item> &v) {
+	int l = 0, r = (int)v.size() - 1, res = 0;
+	while (l <= r) {
+		int mid = (l + r) >> 1;
+		if (v[mid].val <= x) res = mid, l = mid + 1;
+		else r = mid - 1;
+	}
+	return res;
+}
+
+vector<int> FractionalCascading::FindElementX(double x) {
+	vector<int> ans;
+	int k = (int)M.size();
+	int index = BinarySearch(x, M[0]);
+	ans.push_back(M[0][index].posL);
+
+	for (int i = 1; i < k; ++i) {
+		index = M[i-1][index].posM;
+		if (index == (int)M[i].size()) {
+			ans.push_back(M[i][index].posL);
+			continue;
+		}
+		if (index >= 1 && M[i][index - 1].val > x)
+			--index;
+		else if (M[i][index].val < x && index + 1 < (int)M[i].size() && M[i][index + 1].val >= x) {
+			++index;
+		}
+		ans.push_back(M[i][index].posL);
+	}
+	return ans;
+}
+
+vector<vector<Item > >L;
+
+int main() {
+	int k = 0; //k lists
+	int len = 0; // the length of each list;
+	double val; //each item value
+	cin >> k;
+	for (int i = 1; i <= k; ++i) {
+		cin >> len;
+		vector<Item >tmp;
+		for (int j = 0; j < len; ++j) {
+			cin >> val;
+			tmp.push_back(Item(val, j));
+		}
+		L.push_back(tmp);
+	}
+	FC.setL(L);
+	FC.ConstructM();
+	//FC.printLists(FC.getM());
+	double x = 6.4;
+	vector<int>res = FC.FindElementX(x);
+	int cnt = 0;
+	for (auto it : res) {
+		cout << "The upper bound index of " << x << " in List " << cnt++ << " is " << it << endl;
+	}
+	return 0;
+}
+
+/*
+test case:
+4
+5 2.4 6.4 6.5 8.0 9.3
+3 2.3 2.5 2.6
+4 1.3 4.4 6.2 6.6
+5 1.1 3.5 4.6 7.9 8.1
+
+ans:
+1
+3
+3
+3
+*/

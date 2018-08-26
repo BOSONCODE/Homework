@@ -1,0 +1,65 @@
+\documentclass[slidescentered, compress, mathserif, red, hyperref={bookmarks = true}]{beamer}
+\usepackage[space]{ctex}
+\usepackage{graphicx}
+ \usepackage{movie15}
+\hypersetup{pdfpagemode=FullScreen}
+\usetheme{Warsaw}
+%\usetheme{Antibes}
+\usecolortheme{lily}
+\title[ACM, Alogorithm]{%\normalsize subtitle
+\\ \huge ACM-ICPC Introduction}
+ %\setbeamertemplate{footline}[frame number]
+  % 设置覆盖的效果，透明
+ \setbeamercovered{transparent}
+ \usefonttheme[onlysmall]{structurebold}
+ % 设置数学公式的字体
+ \usefonttheme[onlymath]{serif}
+\author[BOSON]{BOSON \\ \small \href{mailto:suda1527403057@gmail.com}{suda1527403057@gmail.com}}
+\institute[JiangSu, Soochow University]{
+ ACM实验室 \\
+ xxx
+}
+\begin{document}
+% 在每一子章节前有一张胶片显示目录
+\iffalse
+\AtBeginSection[]{
+ \begin{frame}<beamer>
+   \tableofcontents[currentsection]
+ \end{frame}
+}
+ \fi
+ \section{Introduction}
+    \begin{frame}
+      \titlepage
+    \end{frame}
+    % 目录
+    \begin{frame}[allowframebreaks]
+     \tableofcontents
+     % You might wish to add the option [pausesections]
+    \end{frame}
+   \subsection{History}
+    \begin{frame}[t] %[t] 取消垂直居中
+        \frametitle{History}
+       AC without art, no better than WA.
+        \begin{center}
+            \begin{itemize}
+                \item{$$a + b = c$$}
+                \item{$$\int_{-\infty}^{\infty}{f(x)} = \sqrt{\pi}$$}
+                \item{$$\lim_{i}{\sum_{i = 1}^{i = n}{\frac{1}{i}}} = ln(n+1) + C$$}
+            \end{itemize}
+        \end{center}
+    \end{frame}
+    \section{Greedy}
+        \begin{frame}
+        的事发后的是发多少
+        \end{frame}
+    \section{Suffix Automation}
+        \begin{frame}
+        \begin{figure}[ht]
+                  \includemovie[
+                    poster,
+                    text={\small(Loading test.avi)}
+                  ]{550pt}{400pt}{test.mp4}
+        \end{figure}
+        \end{frame}
+\end{document}

@@ -1,0 +1,661 @@
+package com.mooctest;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.AndroidKeyCode;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.UnreachableBrowserException;
+
+
+public class Main {
+	
+	/**
+	 * "appPackage", "com.zhy.qianyan"
+	 * "app-launchActivity", "com.zhy.qianyan.MainActivity"
+	 *  本示例脚本仅作为参考，具体请根据自己的测试机型可能出现的特殊情况进行脚本的编写调整
+	 */
+	
+	/**
+	 * 所有和AppiumDriver相关的操作都必须写在该函数中
+	 * @param driver
+	 */
+	public void test(AppiumDriver driver) {
+		    	try {
+			Thread.sleep(6000);		//等待6s，待应用完全启动
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS); //设置尝试定位控件的最长时间为8s,也就是最多尝试8s
+      /*
+    	 * 余下的测试逻辑请按照题目要求进行编写
+    	 */
+    	int width = driver.manage().window().getSize().width;
+    	int height = driver.manage().window().getSize().height;
+    	driver.swipe(width*3/4,height/2,width/4,height/2,500);
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.swipe(width*3/4,height/2,width/4,height/2,500);
+    	driver.findElementByXPath("//android.widget.TextView[@text='开启你的故事']").click();
+    	driver.findElementByXPath("//android.widget.Button[@text='取消']").click();
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[36,91][66,121]']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='注册/登录']").click();
+    	driver.findElementByXPath("//android.widget.EditText[@text='请输入手机号码']").sendKeys("13052879566");
+    	driver.findElementByXPath("//android.widget.EditText[@index='6']").sendKeys("1527403057");
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[610,573][660,597]']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='登录']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='登录']").click();
+    	
+    	//我的主页
+    	driver.findElementByXPath("//android.widget.TextView[@text='我的主页']").click();
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[38,88][74,124]']").click();
+    	
+    	//我的关注..
+    	driver.findElementByXPath("//android.widget.TextView[@text='我的关注']").click();
+    	//关注
+    	/*driver.findElementByXPath("//android.widget.TextView[@text='关注']").click();
+    	//取消关注
+    	driver.findElementByXPath("//android.widget.TextView[@text='取消关注']").click();
+    	//点开其他用户
+    	driver.findElementByXPath("//android.widget.TextView[@text='雪佚']").click();
+    	//点开用户说说
+    	driver.findElementByXPath("//android.widget.TextView[@text='学习打卡，第几天来着？']").click();
+    	//点赞
+    	//driver.findElementByXPath("//android.widget.ImageView[@bounds='[632,953][662,983]']").click();
+    	//留言
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[572,953][602,983]']").click();
+    	//退回
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[38,88][74,124]']").click();
+    	//退回
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[38,88][74,124]']").click();
+    	//右上角关注
+    	driver.findElementByXPath("//android.widget.TextView[@text='关注']").click();
+    	//右上角取消关注
+    	driver.findElementByXPath("//android.widget.TextView[@text='已关注']").click();
+    	//退回
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[38,88][74,124]']").click();    	
+    	//话题
+    	driver.findElementByXPath("//android.widget.TextView[@text='话题']").click();
+    	//耳机里的循环播放
+    	driver.findElementByXPath("//android.widget.TextView[@text='耳机里的循环播放']").click();
+    	//关注
+    	driver.findElementByXPath("//android.widget.TextView[@text='关注']").click();
+    	//退回
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[32,88][68,124]']").click();
+    	//退回
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[32,88][68,124]']").click();
+    	*/
+    	//话题
+    	driver.findElementByXPath("//android.widget.TextView[@text='话题']").click();
+    	//用户
+    	driver.findElementByXPath("//android.widget.TextView[@text='用户']").click();
+    	//退回
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[32,88][68,124]']").click();
+    	
+    	//我的垃圾箱
+    	driver.findElementByXPath("//android.widget.TextView[@text='我的垃圾箱']").click();
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[38,88][74,124]']").click();
+    	
+    	//推荐给好友...
+    	driver.findElementByXPath("//android.widget.TextView[@text='推荐给好友']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='取消']").click();
+    	
+    	//退出页面
+    	driver.findElementByXPath("//android.widget.TextView[@text='推荐给好友']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='取消']").click();
+    	//分享到微信
+    	driver.findElementByXPath("//android.widget.TextView[@text='推荐给好友']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='微信']").click();
+    	//分享到朋友圈
+    	driver.findElementByXPath("//android.widget.TextView[@text='推荐给好友']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='朋友圈']").click();
+    	//QQ
+    	driver.findElementByXPath("//android.widget.TextView[@text='推荐给好友']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='QQ']").click();
+    	//分享到QQ空间
+    	driver.findElementByXPath("//android.widget.TextView[@text='推荐给好友']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='QQ空间']").click();
+    	
+    	//系统通知
+    	driver.findElementByXPath("//android.widget.TextView[@text='系统通知']").click();
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[32,88][68,124]']").click();
+    	
+    	//反馈问题...
+    	driver.findElementByXPath("//android.widget.TextView[@text='反馈问题']").click();
+    	driver.findElementByXPath("//android.widget.EditText[@bounds='[0,162][720,1130]']").sendKeys("提交反馈意见测试");
+    	driver.findElementByXPath("//android.widget.TextView[@text='提交']").click();
+    	
+    	//关于我们
+    	driver.findElementByXPath("//android.widget.TextView[@text='关于我们']").click();
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[38,88][74,124]']").click();
+    	//退出账号
+    	driver.findElementByXPath("//android.widget.TextView[@text='退出账号']").click();
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[38,88][74,124]']").click();
+    	
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[582,1020][688,1126]']").click();
+    	driver.findElementByXPath("//android.widget.EditText[@text='请输入手机号码']").sendKeys("13052879566");
+    	driver.findElementByXPath("//android.widget.EditText[@index='6']").sendKeys("1527403057");
+    	//driver.findElementByXPath("//android.widget.ImageView[@bounds='[610,573][660,597]']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='登录']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='登录']").click();
+    	
+    	driver.findElementByXPath("//android.widget.TextView[@text='发现']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='文集']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='足印']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='热门']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='最新']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='浅记']").click();
+	}
+	
+	/**
+	 * AppiumDriver的初始化逻辑必须写在该函数中
+	 * @return
+	 */
+	public AppiumDriver initAppiumTest() {
+		
+		AppiumDriver driver=null;
+        File classpathRoot = new File(System.getProperty("user.dir"));
+        File appDir = new File(classpathRoot, "apk");
+        File app = new File(appDir, "qianyan.apk");
+        
+        //设置自动化相关参数
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName", "");
+        capabilities.setCapability("platformName", "Android");
+        capabilities.setCapability("deviceName", "Android Emulator");
+        
+      //设置安卓系统版本
+        capabilities.setCapability("platformVersion", "5.1.1");
+        //设置apk路径
+        capabilities.setCapability("app", app.getAbsolutePath()); 
+        
+        //设置app的主包名和主类名
+        capabilities.setCapability("appPackage", "com.zhy.qianyan");
+        capabilities.setCapability("appActivity", ".MainActivity");
+        //设置使用unicode键盘，支持输入中文和特殊字符
+        capabilities.setCapability("unicodeKeyboard","true");
+        //设置用例执行完成后重置键盘
+        capabilities.setCapability("resetKeyboard","true");
+        //初始化
+        try {
+			driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
+        return driver;
+	}
+	
+	public void start() {
+		test(initAppiumTest());
+	}
+	
+	public static void main(String[] args) {
+		Main main = new Main();
+		main.start();
+	}
+}
+
+
+
+
+
+
+package com.mooctest;
+
+import io.appium.java_client.AppiumDriver;
+import io.appium.java_client.AndroidKeyCode;
+import java.io.File;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.util.List;
+import java.util.concurrent.TimeUnit;
+
+import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.remote.CapabilityType;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.UnreachableBrowserException;
+
+
+public class Main {
+	
+	/**
+	 * "appPackage", "com.Qunar"
+	 * "app-launchActivity", "com.mqunar.splash.SplashActivity"
+	 *  本示例脚本仅作为参考，具体请根据自己的测试机型可能出现的特殊情况进行脚本的编写调整
+	 */
+	
+	/**
+	 * 所有和AppiumDriver相关的操作都必须写在该函数中
+	 * @param driver
+	 */
+	public void test(AppiumDriver driver) {
+		    	try {
+			Thread.sleep(6000);		//等待6s，待应用完全启动
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS); //设置尝试定位控件的最长时间为8s,也就是最多尝试8s
+      /*
+    	 * 余下的测试逻辑请按照题目要求进行编写
+    	 */
+    	//关掉创建快捷方式
+    	driver.findElementById("android:id/button2").click();
+    	//关掉更新按钮
+    	driver.findElementById("com.mqunar.atom.attemper:id/atom_atte_iv_close").click();
+    
+    	driver.findElementByXPath("//android.widget.TextView[@text='订单']").click();
+    	try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.findElementById("com.mqunar.patch:id/pub_pat_id_icon_back").click();
+    	//driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	driver.findElementByXPath("//android.widget.TextView[@text='发现']").click();
+    	try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	//driver.findElementById("com.mqunar.patch:id/pub_pat_id_icon_back").click();
+    	driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	driver.findElementByXPath("//android.widget.TextView[@text='服务']").click();
+    	try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	//driver.findElementById("com.mqunar.patch:id/pub_pat_id_icon_back").click();
+    	driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	driver.findElementByXPath("//android.widget.TextView[@text='我的']").click();
+    	try {
+			Thread.sleep(2000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	//driver.findElementById("com.mqunar.patch:id/pub_pat_id_icon_back").click();
+    	driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	
+    	//driver.findElementById("com.mqunar.atom.alexhome:id/atom_alexhome_icon_home_imageview").click();
+    	driver.findElementById("com.mqunar.atom.alexhome:id/atom_alexhome_mod_sight").click();
+    	//driver.findElementById("com.mqunar.atom.sight:id/atom_sight_adv_close_btn").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_main_tv_city_icon").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_et_suggest").sendKeys("南京");
+    	driver.findElementByXPath("//android.widget.TextView[@text='南京']").click();
+    	
+    	
+    	driver.findElementByXPath("//android.widget.TextView[@text='景点门票']").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_list_iv_backpress").click();
+    	
+    	driver.findElementByXPath("//android.widget.TextView[@text='必游榜单']").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_list_iv_backpress").click();
+    	
+    	driver.findElementByXPath("//android.widget.TextView[@text='踏青赏花']").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_list_iv_backpress").click();
+    	
+    	driver.findElementByXPath("//android.widget.TextView[@text='一日游']").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_list_iv_backpress").click();
+    	
+    	driver.findElementByXPath("//android.widget.TextView[@text='名胜古迹']").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_list_iv_backpress").click();
+    	
+    	driver.findElementByXPath("//android.widget.TextView[@text='夫子庙']").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_detail_titlebar_tv_backpress").click();
+    	
+    	driver.findElementByXPath("//android.widget.TextView[@text='总统府']").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_detail_titlebar_tv_backpress").click();
+    	
+    	driver.findElementByXPath("//android.widget.TextView[@text='中山陵']").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_detail_titlebar_tv_backpress").click();
+    	
+    	int width = driver.manage().window().getSize().width;
+    	int height = driver.manage().window().getSize().height;
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.swipe(width*3/4,height/3,width/4,height/3,500);
+    	
+    	driver.findElementByXPath("//android.widget.ImageView[@bounds='[43,349][137,443]']").click();
+    	//driver.findElementByXPath("//android.widget.TextView[@text='万达主题乐园']").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_detail_titlebar_tv_backpress").click();
+    	
+    	//driver.findElementByXPath("//android.widget.ImageView[@bounds='[223,349][317,443]']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='牛首山']").click();
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_detail_titlebar_tv_backpress").click();
+    	
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.swipe(width/4,height/3,width*3/4,height/3,500);	
+    	
+    	try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	//driver.findElementByXPath("//android.widget.TextView[@text='景点门票']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='景点门票']").click();
+    	//driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	//driver.findElementById("com.mqunar.atom.sight:id/atom_sight_list_map_icon").click();
+    	try {
+			Thread.sleep(4000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	//driver.findElementById("com.mqunar.atom.sight:id/atom_sight_list_iv_backpress").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='可订今日']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='可订今日']").click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.findElementByXPath("//android.widget.TextView[@text='热销景点']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='热销景点']").click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.findElementByXPath("//android.widget.TextView[@text='可订明日']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='可订明日']").click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+   	
+        driver.findElementByXPath("//android.widget.TextView[@text='中山陵(5A)']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_detail_titlebar_tv_collect").click();
+    	driver.findElementById("com.mqunar.patch:id/pub_pat_ll_left_area").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_detail_titlebar_tv_share").click();
+    	driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iv_img_title").click();
+    	driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_img_location_icon").click();
+    	driver.findElementById("com.mqunar.patch:id/pub_pat_id_icon_back").click();
+    	
+    	driver.findElementByXPath("//android.widget.Button[@text='景点简介']").click();
+    	driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_cardview_ll_comment_layout").click();
+    	driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.swipe(50, 600, 50, 50, 1000);
+    	
+    	driver.findElementByXPath("//android.widget.TextView[@text='门票']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='一日游']").click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.swipe(50, 900, 50, 10, 1000);
+		
+		driver.findElementByXPath("//android.widget.TextView[@text='查看全部评论']").click();
+		driver.sendKeyEvent(AndroidKeyCode.BACK);
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_detail_titlebar_tv_backpress").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='户外拓展']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='文化古迹']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='农家度假']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.swipe(width*3/4, 600, width*3/4, 400, 1000);
+    	driver.findElementByXPath("//android.widget.TextView[@text='展馆']").click();//展馆
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+		driver.findElementByXPath("//android.widget.TextView[@text='公园']").click();
+		
+		driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='自然风光']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.swipe(width*3/4, 600, width*3/4, 400, 1000);
+    	driver.findElementByXPath("//android.widget.TextView[@text='游乐场']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+
+    	driver.findElementByXPath("//android.widget.TextView[@text='温泉']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.swipe(width*3/4, 600, width*3/4, 400, 1000);
+		driver.findElementByXPath("//android.widget.TextView[@text='体验馆']").click();
+		
+		driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='城市观光']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='室内娱乐']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.swipe(width*3/4, 600, width*3/4, 400, 1000);
+    	driver.findElementByXPath("//android.widget.TextView[@text='手工']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='水上玩乐']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='游船']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.swipe(width*3/4, 600, width*3/4, 400, 1000);
+    	driver.findElementByXPath("//android.widget.TextView[@text='植物园']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='海洋馆']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='运动健身']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.swipe(width*3/4, 600, width*3/4, 400, 1000);
+    	driver.findElementByXPath("//android.widget.TextView[@text='演出']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	/*try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+    	driver.swipe(width*3/4, 600, width*3/4, 400, 1000);*/
+    	driver.findElementByXPath("//android.widget.TextView[@text='餐饮']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='交通']").click();
+    	
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='一日游']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='全部一日游']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='当地游']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='周边游']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='交通']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='文化古迹']").click();
+    	
+		
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+		//int width = driver.manage().window().getSize().width;
+    	//int height = driver.manage().window().getSize().height;
+    	try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.swipe(width*3/4, 600, width*3/4, 50, 1000);
+    	driver.findElementByXPath("//android.widget.TextView[@text='游乐场']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_left").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='城市观光']").click();
+    	
+    	
+    	//driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_right").click();
+    	//driver.findElementByXPath("//android.widget.TextView[@text='离我最近']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_right").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='销量最高']").click();
+    	
+    	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_right").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='价格最高']").click();
+    	
+    	
+    	/*try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		driver.swipe(50, 900, 50, 800, 1000);*/
+		
+      	driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_right").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='价格最低']").click();
+
+    	
+		driver.findElementById("com.mqunar.atom.sight:id/atom_sight_iconfont_right").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='热门评论']").click();
+	}
+	
+	/**
+	 * AppiumDriver的初始化逻辑必须写在该函数中
+	 * @return
+	 */
+	public AppiumDriver initAppiumTest() {
+		
+		AppiumDriver driver=null;
+        File classpathRoot = new File(System.getProperty("user.dir"));
+        File appDir = new File(classpathRoot, "apk");
+        File app = new File(appDir, "qunaer.apk");
+        
+        //设置自动化相关参数
+        DesiredCapabilities capabilities = new DesiredCapabilities();
+        capabilities.setCapability("browserName", "");
+        capabilities.setCapability("platformName", "Android");
+        capabilities.setCapability("deviceName", "Android Emulator");
+        
+        //设置安卓系统版本
+        capabilities.setCapability("platformVersion", "5.1.1");
+        //设置apk路径
+        capabilities.setCapability("app", app.getAbsolutePath()); 
+        
+        //设置app的主包名和主类名
+        capabilities.setCapability("appPackage", "com.Qunar");
+        capabilities.setCapability("appActivity", "com.mqunar.splash.SplashActivity");
+        //设置使用unicode键盘，支持输入中文和特殊字符
+        capabilities.setCapability("unicodeKeyboard","true");
+        //设置用例执行完成后重置键盘
+        capabilities.setCapability("resetKeyboard","true");
+        //初始化
+        try {
+			driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
+		} catch (MalformedURLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}   
+        return driver;
+	}
+	
+	public void start() {
+		test(initAppiumTest());
+	}
+	
+	public static void main(String[] args) {
+		Main main = new Main();
+		main.start();
+	}
+	
+
+}
