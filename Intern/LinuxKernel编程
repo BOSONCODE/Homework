@@ -1,0 +1,43 @@
+Makefile模板:
+obj-m := list_rcu_example.o 
+
+# Please set your kernel directory before build
+KDIR:=""
+(比如说: KDIR:=/lib/modules/$(shell uname -r)/build
+
+ccflags-y += -Wall
+ccflags-y += -Werror
+
+default:
+	$(MAKE) -C $(KDIR) SUBDIRS=$(PWD) modules
+
+clean:
+	rm -rf *.o *.ko *.mod *.symvers *.order *.mod.c
+
+代码运行的命令模板:
+执行make之后生成的文件:
+	filename.mod.o
+	filename.ko
+	filename.mod.c
+	filename.o
+插入模块命令: sudo insmod filename.ko
+取出模块命令: sudo rmmod filename.ko
+显示运行结果的命令: dmesg | tail -n 10
+
+helloworld.c实例
+#include <linux/init.h>
+#include <linux/module.h>
+
+static int helloworld_init(void){
+	printk(KERN_INFO "helloworld\n");
+	return 0;
+}
+
+static void helloworld_exit(void){
+	return;
+}
+
+module_init(helloworld_init);
+module_exit(helloworld_exit);
+
+
