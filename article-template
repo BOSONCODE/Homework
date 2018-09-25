@@ -1,0 +1,47 @@
+\documentclass{article}
+\usepackage[space]{ctex}
+\usepackage[CJKbookmarks]{hyperref}
+\hypersetup{
+colorlinks=true,
+linkcolor=black
+} %解决目录红框的问题
+\renewcommand{\contentsname}{\centerline{目录}}
+
+\title{\textbf{信息安全期末知识点答案}}
+\author{赵宝胜}
+\date{}
+\begin{document}
+\maketitle
+\tableofcontents
+\newpage
+\section{Chapter1}
+    \subsection{计算机安全的目标是什么?它们分别表示什么含义?}
+        \noindent P3
+        \begin{itemize}
+            \item{\textbf{保密性}}
+            \item{\textbf{完整性}}
+            \item{\textbf{可用性}}
+        \end{itemize}
+    \subsection{什么是主动攻击和被动攻击?它们的攻击形式有哪些?}
+        \noindent P6 \newline
+        被动攻击试图获取获取或利用系统的信息但并不影响系统资源, 形式有信息内容的泄露和流量分析\newline
+        主动攻击则试图改变系统资源或者影响系统运行, 形式有对数据流进行修改或伪装数据流, 具体分为四类: 伪装、重放、消息修改和拒绝服务 \newline
+    \subsection{什么是安全服务?主要的安全服务有哪些?如何理解它们}
+        安全服务是一种由系统提供的对系统资源进行特殊保护的处理或通信服务; 安全服务通过安全机制来实现安全策略.
+        主要的安全服务有: 认证, 访问控制, 数据保密性, 数据完整性, 不可否认性 \newline
+        略
+    \subsection{理解网络安全模型和网络访问全模型}
+        pass
+\section{Chapter3}
+    \subsection{理解对称密码体制模型, 如何对加密算法进行分类?}
+
+\section{Chapter4}
+    \subsection{流密码和分组密码的差别在哪里?它们分别有哪些典型算法?}
+     分组密码是对一个大的明文块进行固定变换的操作 \newline
+     流密码是对单个明文位(组)的随时间变换的操作
+    \subsection{什么是DES算法? 如何理解加密算法的雪崩效应}
+    \textbf{DES}(Data Encryption Standard): 由IBM设计, 被美国政府采用, 作为非军事和非机密数据的对称密码体制加密算法。\textbf{雪崩效应}就是一种不稳定的平衡状态也是加密算法的一种特征，它指明文或密钥的少量变化会引起密文的很大变化，就像雪崩前，山上看上去很平静，但是只要有一点问题，就会造成一片大崩溃。
+\section{Chapter6}
+    \subsection{什么是AES算法? AES算法的先进性是如何体现出来的?}
+    高级加密标准（英语：Advanced Encryption Standard，缩写：AES），在密码学中又称Rijndael加密法，是美国联邦政府采用的一种区块加密标准
+\end{document}
