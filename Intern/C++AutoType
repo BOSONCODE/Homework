@@ -1,0 +1,30 @@
+/*
+link: https://blog.csdn.net/markl22222/article/details/10474591
+C++类型自动推导
+*/
+/*
+Function: 这段代码是注册机制，在注册的类型内进行推导
+*/
+template<typename T>
+struct Type2ID;
+template<int id>
+struct ID2Type;
+
+template<typename T>
+Type2ID<T> encode(const T&);
+template<typename T>
+Type2ID<T> encode(T &);
+
+#define type_of(...)\
+	ID2Type<sizeof(encode((__VA_ARGS__)))>::type_t
+
+#define REGISTER_TYPE(type, n) \
+	template <> \
+	struct Type2ID<type> { char id[n]; }; \
+	template <> \
+	struct ID2Type<n> {typedef type type_t; };
+
+REGISTER_TYPE(int, 1)
+REGISTER_TYPE(long, 2)
+REGISTER_TYPE(char, 3)
+REGISTER_TYPE(double, 4)
