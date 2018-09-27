@@ -1,0 +1,32 @@
+struct Heap {
+	int sze;
+	int h[100];
+	int top() { return h[1]; }
+	void push(int x) { h[++sze] = x; flip(sze); }
+	void pop() { h[1] = h[sze--]; erase(1); }
+	bool empty() { return sze < 1; }
+	void flip(int pos) {
+		int p = pos;
+		while (p > 1) {
+			if (h[p >> 1] > h[p]) {
+				swap(h[p >> 1], h[p]);
+				p >>= 1;
+			}
+			else break; 
+		}
+	}
+	void erase(int pos) {
+		int p = pos, lchild = p << 1;
+		while (lchild <= sze) {
+			int tmp = lchild;
+			if ((lchild | 1) <= sze && h[lchild] > h[lchild | 1])
+				tmp |= 1;
+			if (h[tmp] < h[p]) {
+				swap(h[tmp], h[p]);
+				p = tmp;
+				lchild = p << 1;
+			}
+			else break;
+		}
+	}
+}q;
