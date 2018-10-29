@@ -1,0 +1,101 @@
+Week 9-10:
+之前两周主要研究对于rules的划分原理以及实现, 对于当中某个函数还有点不
+
+是很理解，尤其是其中有个有关算法核心的变量的构建有点困惑，先打算扔到
+
+一边，这两周先接着往下啃，把graph部分的东西给弄掉。
+
+看到一个好玩的东西,一个很早就看到过的一段代码:
+float Q_rsqrt(float number){
+	long i; float x2, y; const float threehalfs = 1.5F;
+	x2 = number * 0.5F;
+	y = number;
+	i = *(long *)&y;  //evil floating point bit level
+	i = 0x5f3759df - (i >> 1); //what the fuck?
+	y = *(float *)&i;
+	y = y * (threehalfs - (x2 * y * y)); //1st iteration
+	//y = y * (threehalfs - (x2 * y *y)); //2st iteration, this 
+
+can be removed;
+	ifdef __linux_assert(!isnan(y)); //bk010122 - FPE?
+	#endif
+	#endif return y;
+}
+这段代码是用来求 1/sqrt(x),来自于QuakeIII(雷神之锤3)原理也很简单,就
+
+是牛顿迭代, 但是这里最神奇的是那个神奇的0x5f3759df,姑且称作magic 
+
+number吧
+这段代码的效率比普通的牛顿迭代要快好多倍,很显然它一步就收敛的，所以这
+
+个神奇的magic number究竟是个什么东西，怎么来的。
+具体的理论研究可以参考Chris Lomont的一篇note《Fast Inverse Square 
+
+Root》, 这个人很有意思，我顺着查下去，这个人真的挺有趣的，一个数学
+
+phd.
+这里我就简单介绍一下大致原理, 都是学习了Chris Lomont那边note之后弄的
+
+。
+牛顿迭代的公式是x(n+1) = x(n) - f(x(n))/f'(x(n)), 令f(ans) = 0, ans 
+
+= sqrt(a).
+比如要求sqrt(a), 那么就可以设f(x) = x*x - a; 所以这里我们可以设f(x) 
+
+= 1/(x*x) - a, 之所以不写成f(x) = x*x - 1/a;
+那是因为后者会逼近1/a,而1/a不够准确,再加上迭代的精度损失,会导致最后精
+
+度损失更大,而前者的精度损失只会存在于x。
+所以更新公式为x(n+1) = x(n) - f(x(n))/f'(x(n)) <==> x(n+1) = x(n)
+
+(1.5 - 0.5*a*x(n)*x(n)), 这就解释了这段代码的大致原理，
+另外就是那个magic number的是怎么来的, 牛顿迭代的本质上是沿着梯度进行
+
+下降逼近的，在我们之前实现的时候一般初始化x的时候都是随便写的，实际上
+
+就是如果你初始化的那个x越逼近答案那么迭代次数就越少，也就是说越快，所
+
+以这个magic number很显然就是初始化的时候那个guess number, 但是为什么
+
+偏偏是这个数字而不是其他数字呢，虽然Chris Lomont找到了一个更快的magic 
+
+number, 不过他从理论上解释不了为什么，他的理论求值并没有这段代码中的
+
+快，但是更快的那个magic number就是在附近进行搜索到的，最后Chris 
+
+Lomont只留下一句问题应该是出现在乘法那边。
+分析的方法就是从float二进制的组成结构进行分析，假设magic number为 R
+
+(0, R1, R2), 0表示sign bit, R1表示exponent field，R2表示mantissa 
+
+field。
+分析步骤是:
+step1: 求解R1，设相对误差epsilon = abs((y - y0)/y), 变量为M,也就是
+
+mantissa field， 然后通过max|epsilon| < u, limit(u->0),这么一逼近就
+
+发现R1只能等于190(0xbe)
+step2: 求解R2, 变量为R2，然后对于其他参数都取最优值，最后会得到9个函
+
+数, minval = minimize max_i{|f_i|} 然后R2 = floor[2^23*minval+0.5]
+
+=0x37642f
+最后凑起来就得出了一个理论上的magic number, R = 0x5f37642f,经过搜索
+
+之后得到的比源代码更优化的magic number是 R = 0x5f375a86
+
+再解释一下为啥2st iteration被注释掉了，那是因为在第一次迭代之后的误差
+
+已经在允许的范围内了，如果进行了第二次迭代，误差会小很多，但是考虑到
+
+游戏的流畅性，还是注释掉了，在允许范围内就可以了。
+
+还有一部分是这个note里没有提到的，就是为啥magic number是通过 R - (i 
+
+>>1) 这么算过来的，这个http://blog.jobbole.com/105295/在这里有讲到，
+
+那么也就不难理解了，这里在猜测的时候是有一个近似，而Chris Lomont的
+
+note就是建立在这里提到的近似的前提基础上推导出来的。
+也就是y = 1/sqrt(x) 然后通过去对数log2(y) = -1/2log2(x) 最后可以导出
+i = K - (i >> 1)
