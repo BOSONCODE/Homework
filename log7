@@ -1,0 +1,82 @@
+Week 13-14:
+接着研究关于决策树的文档，大树和小树并且回过头去解决了segcode文件的那个留下的没有理解的函数。
+
+openmp的一个学习:
+编译的命令, g++ -fopenmp
+一:
+#pragma omp parallel
+{
+	do something;
+}
+
+二:
+for制导语句是将for循环分配给各个线程执行，这里要求数据不存在依赖
+(1) #pragma omp parallel for
+	for ()
+(2) #pragma omp parallel
+{
+	#pragma omp for
+		for()
+}
+
+三:
+#pragma omp master表示由主线程执行
+#pragma omp single表示选一个线程执行
+#pragma omp critical 制导语句标识的下一行代码, 也可以是跟着一个大括号括起来的代码段做了同步处理。
+#pragma omp for reduction(+:sum) reduction制导语句，操作是退出时将各自的sum相加存到外面的那个sum中
+#pragma omp for schedule(static, block_size) 将循环分成很多很多块，每一块大小为block_size
+
+自己写了一个测试函数:
+/*************************************************************************
+    > File Name: test.cpp
+    > Author: BOSON_Z
+    > Mail: suda1527403057@163.com 
+    > Created Time: Wed 10 Oct 2018 03:14:38 AM EDT
+ ************************************************************************/
+#include <bits/stdc++.h>
+#include <sys/time.h>
+#include "omp.h"
+using namespace std;
+
+void test1(){
+	struct timeval t1, t2;
+	int sec;
+	gettimeofday(&t1, NULL);
+	uint64_t sum = 0;
+	for (uint64_t i = 1; i <= 5; ++i){
+		uint64_t st = (i - 1)*1e9, en = i*1e9;	
+		for (uint64_t j = st; j <= en; ++j){
+			sum += j;
+		}
+	}
+	cout << sum << endl;
+	gettimeofday(&t2, NULL);
+	sec = t2.tv_sec*1000 + t2.tv_usec/1000 - (t1.tv_sec*1000 + t1.tv_usec/1000);
+	cout << "sec: " << sec << endl;
+}
+
+void test2(){
+	struct timeval t1, t2;
+	int sec;
+	gettimeofday(&t1, NULL);
+	uint64_t sum = 0;
+	omp_set_num_threads(4);
+#pragma omp parallel for reduction(+:sum)
+	for (uint64_t i = 1; i <= 5; ++i){
+		uint64_t st = (i - 1)*1e9, en = i*1e9;
+		for (uint64_t j = st; j <= en; ++j){
+			sum += j;
+		}
+	}
+	cout << sum << endl;
+	gettimeofday(&t2, NULL);
+	sec = t2.tv_sec*1000 + t2.tv_usec/1000 - (t1.tv_sec*1000 + t1.tv_usec/1000);
+	cout << "sec: " << sec << endl;
+}
+
+int main(){
+	test1();
+	test2();
+	return 0;
+}
+
