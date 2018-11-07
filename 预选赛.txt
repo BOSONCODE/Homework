@@ -1,3 +1,5 @@
+è¯¥ç”Ÿåœ¨æ ¡æœŸé—´ä¸¥äºå¾‹å·±ï¼Œä¸¥æ ¼éµå®ˆæ ¡è§„ã€é™¢è§„ï¼Œåˆ»è‹¦å­¦ä¹ çš„åŒæ—¶ä¹Ÿèƒ½å¤Ÿåšåˆ°æ”¾æ¾èº«å¿ƒï¼Œç§¯æå‚åŠ ç¤¾ä¼šæ´»åŠ¨å»å¸®åŠ©ä»–äººã€‚æ€æƒ³ä¸Šç´§è·Ÿæ—¶ä»£çš„æ½®æµï¼Œç¬¦åˆå½“ä»£å¤§å­¦ç”Ÿå‹¤å¥‹å¥½å­¦ã€ä¹äºåŠ©äººçš„é£èŒƒã€‚å­¦ä¹ ä¸Šä¸€ä¸ä¸è‹Ÿï¼Œç»å¸¸ä¸è€å¸ˆæœ‰äº’åŠ¨ã€‚å­¦æœ¯ç§‘ç ”ä¸Šå‹¤å¥‹ä¸Šè¿›ã€åˆ»è‹¦é’»ç ”ï¼Œåœ¨æå‡è‡ªå·±çš„åŒæ—¶ä¹Ÿåœ¨å¤šé¡¹å¤§èµ›ä¸­è·å¥–ï¼Œä¸ºå­¦æ ¡äº‰å…‰ã€‚ç”Ÿæ´»ä¸Šå¹³æ˜“è¿‘äººï¼ŒåŒå­¦ä¹‹é—´ã€å¸ˆç”Ÿä¹‹é—´éƒ½èƒ½å¤Ÿåšåˆ°å¾ˆå¥½çš„äº¤æµã€‚
+
 package com.mooctest;
 
 import io.appium.java_client.AppiumDriver;
@@ -19,77 +21,77 @@ import org.openqa.selenium.remote.UnreachableBrowserException;
 public class Main {
 	
 	/**
-	 * ËùÓĞºÍAppiumDriverÏà¹ØµÄ²Ù×÷¶¼±ØĞëĞ´ÔÚ¸Ãº¯ÊıÖĞ
+	 * æ‰€æœ‰å’ŒAppiumDriverç›¸å…³çš„æ“ä½œéƒ½å¿…é¡»å†™åœ¨è¯¥å‡½æ•°ä¸­
 	 * @param driver
 	 */
 	public void test(AppiumDriver driver) {
 		    	try {
-			Thread.sleep(6000);		//µÈ´ı6s£¬´ıÓ¦ÓÃÍêÈ«Æô¶¯
+			Thread.sleep(6000);		//ç­‰å¾…6sï¼Œå¾…åº”ç”¨å®Œå…¨å¯åŠ¨
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS); //ÉèÖÃ³¢ÊÔ¶¨Î»¿Ø¼şµÄ×î³¤Ê±¼äÎª8s,Ò²¾ÍÊÇ×î¶à³¢ÊÔ8s
+    	driver.manage().timeouts().implicitlyWait(8, TimeUnit.SECONDS); //è®¾ç½®å°è¯•å®šä½æ§ä»¶çš„æœ€é•¿æ—¶é—´ä¸º8s,ä¹Ÿå°±æ˜¯æœ€å¤šå°è¯•8s
       /*
-    	 * ÓàÏÂµÄ²âÊÔÂß¼­Çë°´ÕÕÌâÄ¿ÒªÇó½øĞĞ±àĞ´
+    	 * ä½™ä¸‹çš„æµ‹è¯•é€»è¾‘è¯·æŒ‰ç…§é¢˜ç›®è¦æ±‚è¿›è¡Œç¼–å†™
     	 */
-    	driver.findElementByXPath("//android.widget.Button[@text='Í¬Òâ']").click();
+    	driver.findElementByXPath("//android.widget.Button[@text='åŒæ„']").click();
     	try {
-			Thread.sleep(2000);		//µÈ´ı2s£¬´ıÓ¦ÓÃÍêÈ«Æô¶¯
+			Thread.sleep(2000);		//ç­‰å¾…2sï¼Œå¾…åº”ç”¨å®Œå…¨å¯åŠ¨
 		} catch (InterruptedException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-    	//¹ØµôĞÂÈË´óÀñ°ü [651,69][687,105][640, 70][700, 130]
+    	//å…³æ‰æ–°äººå¤§ç¤¼åŒ… [651,69][687,105][640, 70][700, 130]
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[640,70][700,130]']").click();
-    	//´ò¿ª·ÖÀà
+    	//æ‰“å¼€åˆ†ç±»
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[144,1180][288,1280]']").click();
-    	//´ò¿ª¹ºÎï³µ
+    	//æ‰“å¼€è´­ç‰©è½¦
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[432,1180][576,1280]']").click();
-    	//´ò¿ªÎÒµÄ
+    	//æ‰“å¼€æˆ‘çš„
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[576,1180][720,1280]']").click();
     	
-    	//´ò¿ª·¢ÏÖ
+    	//æ‰“å¼€å‘ç°
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[288,1180][432,1280]']").click();
-    	//´ò¿ªËÑË÷
+    	//æ‰“å¼€æœç´¢
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[532,60][616,144]']").click();
-    	//´ò¿ª¾«Ñ¡
-    	driver.findElementByXPath("//android.widget.TextView[@text='¾«Ñ¡']").click();
-    	//´ò¿ªÊÓÆµ
-    	driver.findElementByXPath("//android.widget.TextView[@text='ÊÓÆµ']").click();
-    	//´ò¿ªÖ±²¥
-    	driver.findElementByXPath("//android.widget.TextView[@text='Ö±²¥']").click();
-    	//´ò¿ª¹Ø×¢
-    	driver.findElementByXPath("//android.widget.TextView[@text='¹Ø×¢']").click();
-    	//´ò¿ªÆÀÂÛ
+    	//æ‰“å¼€ç²¾é€‰
+    	driver.findElementByXPath("//android.widget.TextView[@text='ç²¾é€‰']").click();
+    	//æ‰“å¼€è§†é¢‘
+    	driver.findElementByXPath("//android.widget.TextView[@text='è§†é¢‘']").click();
+    	//æ‰“å¼€ç›´æ’­
+    	driver.findElementByXPath("//android.widget.TextView[@text='ç›´æ’­']").click();
+    	//æ‰“å¼€å…³æ³¨
+    	driver.findElementByXPath("//android.widget.TextView[@text='å…³æ³¨']").click();
+    	//æ‰“å¼€è¯„è®º
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[653,78][693,118]']").click();
     	driver.sendKeyEvent(AndroidKeyCode.BACK);
-    	//´ò¿ªËÑË÷
+    	//æ‰“å¼€æœç´¢
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[536,50][636,146]']").click();
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[0,79][100,119]']").click();
-    	//µã¿ªÊ×Ò³
+    	//ç‚¹å¼€é¦–é¡µ
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[0,1180][144,1280]']").click();
-    	//µã¿ªËÑË÷
+    	//ç‚¹å¼€æœç´¢
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[117,81][146,110]']").click();
-    	//ÊäÈëËÑË÷¶ú»ú
-    	driver.findElementByXPath("//android.widget.EditText[@text='¾©¶«³¬ÊĞ Âú199¼õ100']").sendKeys("¶ú»ú");
-    	//µã»÷ËÑË÷
-    	driver.findElementByXPath("//android.widget.TextView[@text='ËÑË÷']").click();
-    	//µã»÷ÏúÁ¿
-    	driver.findElementByXPath("//android.widget.TextView[@text='ÏúÁ¿']").click();
-    	//µã»÷¼Û¸ñ
-    	driver.findElementByXPath("//android.widget.TextView[@text='¼Û¸ñ']").click();
-    	driver.findElementByXPath("//android.widget.TextView[@text='¼Û¸ñ']").click();
-    	/*//µã»÷É¸Ñ¡
-    	driver.findElementByXPath("//android.widget.TextView[@text='É¸Ñ¡']").click();
-    	driver.findElementByXPath("//android.widget.TextView[@text=' ±±¾©¶«³ÇÇøÄÚ»·µ½Èı»·Àï']").click();
-    	driver.findElementByXPath("//android.widget.TextView[@text='½­ËÕ']").click();
-    	driver.findElementByXPath("//android.widget.TextView[@text='ÄÏ¾©ÊĞ']").click();
-    	driver.findElementByXPath("//android.widget.TextView[@text='¹ÄÂ¥Çø']").click();
+    	//è¾“å…¥æœç´¢è€³æœº
+    	driver.findElementByXPath("//android.widget.EditText[@text='äº¬ä¸œè¶…å¸‚ æ»¡199å‡100']").sendKeys("è€³æœº");
+    	//ç‚¹å‡»æœç´¢
+    	driver.findElementByXPath("//android.widget.TextView[@text='æœç´¢']").click();
+    	//ç‚¹å‡»é”€é‡
+    	driver.findElementByXPath("//android.widget.TextView[@text='é”€é‡']").click();
+    	//ç‚¹å‡»ä»·æ ¼
+    	driver.findElementByXPath("//android.widget.TextView[@text='ä»·æ ¼']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='ä»·æ ¼']").click();
+    	/*//ç‚¹å‡»ç­›é€‰
+    	driver.findElementByXPath("//android.widget.TextView[@text='ç­›é€‰']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text=' åŒ—äº¬ä¸œåŸåŒºå†…ç¯åˆ°ä¸‰ç¯é‡Œ']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='æ±Ÿè‹']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='å—äº¬å¸‚']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='é¼“æ¥¼åŒº']").click();
     	
-    	driver.findElementByXPath("//android.widget.CheckBox[@text='½ö¿´ÓĞ»õ'").click();
+    	driver.findElementByXPath("//android.widget.CheckBox[@text='ä»…çœ‹æœ‰è´§'").click();
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[676,843][696,851]']").click();
-    	driver.findElementByXPath("//android.widget.CheckBox[@text='Ë÷Äá£¨SONY£©'").click();
+    	driver.findElementByXPath("//android.widget.CheckBox[@text='ç´¢å°¼ï¼ˆSONYï¼‰'").click();
     	int width = driver.manage().window().getSize().width;
     	int height = driver.manage().window().getSize().height;
     	try {
@@ -99,25 +101,25 @@ public class Main {
 			e.printStackTrace();
 		}
     	driver.swipe(width*3/4,height/3,width/4,height/3,500);
-    	driver.findElementByXPath("//android.widget.CheckBox[@text='¶ú»ú'").click();   	
-    	driver.findElementByXPath("//android.widget.Button[@text='È·¶¨']").click();*/
-    	//µã»÷×ÛºÏ
-    	driver.findElementByXPath("//android.widget.TextView[@text='×ÛºÏ']").click();
+    	driver.findElementByXPath("//android.widget.CheckBox[@text='è€³æœº'").click();   	
+    	driver.findElementByXPath("//android.widget.Button[@text='ç¡®å®š']").click();*/
+    	//ç‚¹å‡»ç»¼åˆ
+    	driver.findElementByXPath("//android.widget.TextView[@text='ç»¼åˆ']").click();
     	
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[104,185][114,191]']").click();
-    	driver.findElementByXPath("//android.widget.TextView[@text='ĞÂÆ·ÓÅÏÈ']").click();
+    	driver.findElementByXPath("//android.widget.TextView[@text='æ–°å“ä¼˜å…ˆ']").click();
     	
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[104,185][114,191]']").click();
-    	driver.findElementByXPath("//android.widget.TextView[@text='ÆÀÂÛÊı´Ó¸ßµ½µÍ']").click();
-    	//²âÊÔÖÇÄÜÖúÀí
+    	driver.findElementByXPath("//android.widget.TextView[@text='è¯„è®ºæ•°ä»é«˜åˆ°ä½']").click();
+    	//æµ‹è¯•æ™ºèƒ½åŠ©ç†
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[542,67][606,131]']").click();
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[0,50][94,140]']").click();
     	
-    	//ä¯ÀÀÊ±ÇĞ»»Ä£¿é
+    	//æµè§ˆæ—¶åˆ‡æ¢æ¨¡å—
     	driver.findElementByXPath("//android.widget.ImageView[@bounds='[638,67][702,131]']").click();
 	}
 	/**
-	 * AppiumDriverµÄ³õÊ¼»¯Âß¼­±ØĞëĞ´ÔÚ¸Ãº¯ÊıÖĞ
+	 * AppiumDriverçš„åˆå§‹åŒ–é€»è¾‘å¿…é¡»å†™åœ¨è¯¥å‡½æ•°ä¸­
 	 * @return
 	 */
 	public AppiumDriver initAppiumTest() {
@@ -127,24 +129,24 @@ public class Main {
         File appDir = new File(classpathRoot, "apk");
         File app = new File(appDir, "JDmall.apk");
         
-        //ÉèÖÃ×Ô¶¯»¯Ïà¹Ø²ÎÊı
+        //è®¾ç½®è‡ªåŠ¨åŒ–ç›¸å…³å‚æ•°
         DesiredCapabilities capabilities = new DesiredCapabilities();
         capabilities.setCapability("browserName", "");
         capabilities.setCapability("platformName", "Android");
         capabilities.setCapability("deviceName", "Android Emulator");
-        //ÉèÖÃ°²×¿ÏµÍ³°æ±¾
+        //è®¾ç½®å®‰å“ç³»ç»Ÿç‰ˆæœ¬
         capabilities.setCapability("platformVersion", "5.1.1");
-        //ÉèÖÃapkÂ·¾¶
+        //è®¾ç½®apkè·¯å¾„
         capabilities.setCapability("app", app.getAbsolutePath()); 
         capabilities.setCapability("appPackage","com.jingdong.app.mall");
         capabilities.setCapability("appActivity",".main.MainActivity");
         
-        //ÉèÖÃÊ¹ÓÃunicode¼üÅÌ£¬Ö§³ÖÊäÈëÖĞÎÄºÍÌØÊâ×Ö·û
+        //è®¾ç½®ä½¿ç”¨unicodeé”®ç›˜ï¼Œæ”¯æŒè¾“å…¥ä¸­æ–‡å’Œç‰¹æ®Šå­—ç¬¦
         capabilities.setCapability("unicodeKeyboard","true");
-        //ÉèÖÃÓÃÀıÖ´ĞĞÍê³ÉºóÖØÖÃ¼üÅÌ
+        //è®¾ç½®ç”¨ä¾‹æ‰§è¡Œå®Œæˆåé‡ç½®é”®ç›˜
         capabilities.setCapability("resetKeyboard","true");
         capabilities.setCapability("noSign","true");
-        //³õÊ¼»¯
+        //åˆå§‹åŒ–
         try {
 			driver = new AppiumDriver(new URL("http://127.0.0.1:4723/wd/hub"), capabilities);
 		} catch (MalformedURLException e) {
